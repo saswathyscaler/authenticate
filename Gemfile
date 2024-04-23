@@ -50,7 +50,6 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
 
-
 # Use Sass to process CSS
 # gem "sassc-rails"
 

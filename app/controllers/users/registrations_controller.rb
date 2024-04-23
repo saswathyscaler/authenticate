@@ -4,27 +4,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token
   respond_to :json
 
-  private
-
-  def respond_with(resource, _opts={})
-    if request.method == "POST" && resource.persisted?
-      render json: {
-        status: { code: 200, message: "signed in succesfully....." },
+ private
+ def respond_with(resource, _opt={})
+  if request.method =="POST" && resource.persisted?
+    render json:{
+        status:{code: 200, message: "Signed Up successfully. "},
         data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
-      }, status: :ok
-    elsif request.method == "DELETE"
-      render json: {
-        status: { code: 200, message: "Account deleted uccesfully....." }
-      }, status: :ok
-    else
-      render json: {
-        status: { code: 422, message: "User could not accessed ....#{resource.errors.full_messages.to_sentence}" }
-      }, status: :unprocessable_entity
-    end
+    },status: :ok
+    
+  elsif request.method =="DELETE" 
+    render json:{
+        status:{code: 200, message: "Account Deleted  successfully. "},
+    },status: :ok
+    
+  else
+    render json:{
+      status:{code: 422, message: "Some error occure. #{resource.errors.full_messages} "},
+  },status: :unprocessable_entity
   end
-
+   
+ end
 
 end
+
+
+
   # def respond_with(resource, _opts={})
   #   if request.method == "POST" && resource.persisted?
   #     token = JWT.encode({ user_id: resource.id }, ENV['DEVISE_JWT_SECRET_KEY'], 'HS256')
